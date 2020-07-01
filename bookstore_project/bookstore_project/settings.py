@@ -38,9 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Third-party
+    'crispy_forms',
+
+    # Local
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
 ]
+
+# django-crispy-forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4' # need to specify the CSS framework you want to use in your forms.
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -124,6 +131,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# defines the location of static files in local development
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),] 
+
+# location of static files for production 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+# It is implicitly set for us and although this is an optional step, I prefer to make it explicit in all projects.
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
 AUTH_USER_MODEL = 'users.CustomUser' #will cause our project to use CustomUser instead of the default User model.
 LOGIN_REDIRECT_URL = 'home'

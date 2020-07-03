@@ -37,14 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites', # adding sites framework for controling multiple sites.
 
     # Third-party
     'crispy_forms',
+    'allauth',
+    'allauth.account',
 
     # Local
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
 ]
+
 
 # django-crispy-forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4' # need to specify the CSS framework you want to use in your forms.
@@ -146,5 +150,30 @@ STATICFILES_FINDERS = [
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser' #will cause our project to use CustomUser instead of the default User model.
+
+# django-allauth config
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+ACCOUNT_LOGOUT_REDIRECT = 'home'
+
+
+# django-allauth config
+SITE_ID = 1 # Since we have only one site
+
+#  which is used when Django attempts to authenticate a user.
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#ACCOUNT_SESSION_REMEMBER = True 
+# It will remember users session so that they don't have to log in again, and remember box will removed here   
+
+#ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False # to only ask for a password once.
+
+# Email Only Login & Signup
+'''ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_REQUIRED = True'''

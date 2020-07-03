@@ -11,11 +11,11 @@
     <img class="bookcover" src="{% static 'images/djangoforprofessionals.jpg' %}">
 
     {% if user.is_authenticated %}
-        Hi {{ user.email }}!
-        <p><a href="{% url 'logout' %}">Log Out</a></p>
+        <p>Hi {{ user.email }}!</p>
+        <p><a href="{% url 'account_logout' %}">Log Out</a></p>
     {% else %}
         <p>You are not logged in</p>
-        <a href="{% url 'login' %}">Log in</a>
-        <a href="{% url 'signup' %}">Sign Up</a>
+        <a href="{% url 'account_login' %}">Log in</a>
+        <a href="{% url 'account_signup' %}">Sign Up</a>
     {% endif %}
 {% endblock %}

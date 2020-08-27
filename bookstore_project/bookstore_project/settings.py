@@ -14,29 +14,33 @@ import os
 
 import environ
 
-env = environ.Env()
-
-# reading .env file
-environ.Env.read_env()
-
-# Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ, So provided default value
-SECRET_KEY = env("SECRET_KEY", default="unsafe-secret-key")
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+env = environ.Env(
+    # set casting, defalut value
+    DEBUG=(bool, False)
+)
+
+env_file = os.path.join(BASE_DIR, ".env")
+
+# reading .env file
+environ.Env.read_env(env_file)
+
+# False if not in os.environ
+DEBUG = env('DEBUG', default=False)
+
+# Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ, So provided default value
+SECRET_KEY = env("SECRET_KEY", default="unsafe-secret-key")
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*!*$7p8jv1iik%_30-t0suu=fdy3sue0!1+6f8g)78il+cq07q'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -99,14 +103,10 @@ WSGI_APPLICATION = 'bookstore_project.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': env('DATABASE_HOST'),
-        'PORT': env('DATABASE_PORT'),
-    }
+    
+    # read os.environ['DATABASE_URL'] and raises ImproperlyConfigured exception if not found
+    'default': env.db(),
+    
 }
 
 

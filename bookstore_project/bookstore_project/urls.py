@@ -15,12 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from pages.views import CustomPasswordChangeView
 
 urlpatterns = [
     # Django admin
     path('admin/', admin.site.urls),
 
     # User management
+    path("accounts/password/change/", CustomPasswordChangeView.as_view(), name="account_password_change"),
     path('accounts/', include('allauth.urls')),
 
     # Local apps

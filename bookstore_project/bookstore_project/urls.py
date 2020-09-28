@@ -21,7 +21,7 @@ from pages.views import CustomPasswordChangeView
 
 urlpatterns = [
     # Django admin
-    path('admin/', admin.site.urls),
+    path('anything-but-admin/', admin.site.urls),
 
     # User management
     path("accounts/password/change/", CustomPasswordChangeView.as_view(), name="account_password_change"),

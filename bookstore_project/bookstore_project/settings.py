@@ -14,6 +14,8 @@ import os
 
 import environ
 
+import dj_database_url
+
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -44,7 +46,7 @@ SECRET_KEY = env("SECRET_KEY", default="unsafe-secret-key")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-ALLOWED_HOSTS = ['.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['bookstore-for-bookworms.herokuapp.com/', 'localhost', '127.0.0.1'] # Want it to run in heroku and also in localhost
 
 
 # Application definition
@@ -55,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.sites', # adding sites framework for controling multiple sites.
 
@@ -77,6 +80,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4' # need to specify the CSS framework you want
 
 MIDDLEWARE = [
     'django.middleware.cache.UpdateCacheMiddleware', # to add per-site caching
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -246,3 +250,7 @@ if ENVIRONMENT == 'production':
     CSRF_COOKIE_SECURE = True # to avoid transmitting the cookie over HTTP accidentally.
 
     SECURE_REFERRER_POLICY = 'same-origin' # This allows CSRF and internal analytics to work without leaking Referer values to other domains
+
+
+db_from_env = dj_database_url.config(conn_max_age=500) # Returns configured DATABASE dictionary from DATABASE_URL
+DATABASES['default'].update(db_from_env)

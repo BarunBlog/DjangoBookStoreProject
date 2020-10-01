@@ -68,7 +68,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
 
     # Local
-    'users.apps.UsersConfig',
+    #'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
     'books.apps.BooksConfig',
     'orders.apps.OrdersConfig',

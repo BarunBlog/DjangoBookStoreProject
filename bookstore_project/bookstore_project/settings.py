@@ -27,16 +27,16 @@ env = environ.Env(
     DEBUG=(bool, False)
 )
 
-env_file = os.path.join(BASE_DIR, ".env")
+'''env_file = os.path.join(BASE_DIR, ".env")
 
 # reading .env file
-environ.Env.read_env(env_file)
+environ.Env.read_env(env_file)'''
 
 # False if not in os.environ
 DEBUG = env('DEBUG', default=False)
 
 
-ENVIRONMENT = os.environ.get('ENVIRONMENT', default='development')
+ENVIRONMENT = env('ENVIRONMENT', default='development')
 
 
 # Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ, So provided default value
@@ -209,11 +209,11 @@ ACCOUNT_EMAIL_REQUIRED = True'''
 DEFAULT_FROM_EMAIL = 'admin@djangobookstore.com'
 
 
-EMAIL_HOST = env('EMAIL_HOST')
-EMAIL_USE_TLS = env('EMAIL_USE_TLS')
-EMAIL_PORT = env('EMAIL_PORT')
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = env('EMAIL_HOST', default='example.gmail.com')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS', default=True)
+EMAIL_PORT = env('EMAIL_PORT', default=587)
+EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='example@gmail.com')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='example')
 
 
 
@@ -221,8 +221,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Stripe
-STRIPE_TEST_PUBLISHABLE_KEY=os.environ.get('STRIPE_TEST_PUBLISHABLE_KEY')
-STRIPE_TEST_SECRET_KEY=os.environ.get('STRIPE_TEST_SECRET_KEY')
+STRIPE_TEST_PUBLISHABLE_KEY=env('STRIPE_TEST_PUBLISHABLE_KEY')
+STRIPE_TEST_SECRET_KEY=env('STRIPE_TEST_SECRET_KEY')
 
 # Django-debug-toolbar
 INTERNAL_IPS = ('127.0.0.1',)
@@ -252,5 +252,5 @@ if ENVIRONMENT == 'production':
     SECURE_REFERRER_POLICY = 'same-origin' # This allows CSRF and internal analytics to work without leaking Referer values to other domains
 
 
-db_from_env = dj_database_url.config(conn_max_age=500) # Returns configured DATABASE dictionary from DATABASE_URL
-DATABASES['default'].update(db_from_env)
+    db_from_env = dj_database_url.config(conn_max_age=500) # Returns configured DATABASE dictionary from DATABASE_URL
+    DATABASES['default'].update(db_from_env)

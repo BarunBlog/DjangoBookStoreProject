@@ -1,1 +1,1 @@
-web: gunicorn bookstore_project.wsgi --log-file -
+web: gunicorn bookstore_project.bookstore_project.wsgi --log-file -

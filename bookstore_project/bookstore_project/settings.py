@@ -18,8 +18,6 @@ import dj_database_url
 
 import django_heroku
 
-import django
-
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -263,6 +261,3 @@ if ENVIRONMENT == 'production':
     # https://devcenter.heroku.com/articles/django-app-configuration
     # Activate Django-Heroku.
     django_heroku.settings(locals())
-
-
-    django.setup()

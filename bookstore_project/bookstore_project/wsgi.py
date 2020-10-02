@@ -13,8 +13,8 @@ import sys
 
 from django.core.wsgi import get_wsgi_application
 
-sys.path.append('/home/django_projects/bookstore_project')
-sys.path.append('/home/django_projects/bookstore_project/bookstore_project')
+sys.path.append('/bookstore_project')
+sys.path.append('/bookstore_project/users')
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bookstore_project.bookstore_project.settings')
 

@@ -9,8 +9,13 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 
 import os
 
+import sys
+
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bookstore_project.settings')
+sys.path.append('/home/django_projects/bookstore_project')
+sys.path.append('/home/django_projects/bookstore_project/bookstore_project')
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bookstore_project.bookstore_project.settings')
 
 application = get_wsgi_application()
